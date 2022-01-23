@@ -1,0 +1,107 @@
+.about-project {
+  padding: 110px 70px;
+}
+
+.about-project__title {
+  border-bottom: 1px solid black;
+  padding-bottom: 23px;
+  font-style: normal;
+  font-size: 22px;
+  line-height: 27px;
+  font-weight: normal;
+  margin: 0;
+}
+.about-project__paragraph {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 40px;
+  margin-top: 70px;
+  margin-bottom: 110px;
+}
+.about-project__subtitle {
+  margin: 0;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: normal;
+  font-style: normal;
+  align-items: center;
+}
+.about-project__text {
+  margin: 26px 0 0;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: normal;
+  font-style: normal;
+}
+
+.about-project__timetable {
+  display: grid;
+  grid-template-columns: 20% 80%;
+  text-align: center;
+  grid-template-rows: 36px auto;
+  font-size: 14px;
+  line-height: 17px;
+  font-style: normal;
+  font-weight: normal;
+}
+.about-project__one-week {
+  margin: 0;
+  background-color: black;
+  color: #ffffff;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.about-project__four-weeks {
+  background: #f2f2f2;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.about-project__caption {
+  color: #a0a0a0;
+  margin: 14px 0 0;
+}
+@media screen and (max-width: 769px) {
+  .about-project {
+    padding: 90px 50px;
+  }
+}
+@media screen and (max-width: 584px) {
+  .about-project {
+    padding: 90px 30px;
+  }
+}
+@media screen and (max-width: 374px) {
+  .about-project {
+    padding: 70px 18px;
+  }
+  .about-project__title {
+    padding-bottom: 28px;
+    font-size: 18px;
+    line-height: 22px;
+  }
+  .about-project__paragraph {
+    grid-template-columns: 100%;
+    row-gap: 56px;
+    margin-top: 60px;
+    margin-bottom: 60px;
+  }
+  .about-project__subtitle {
+    font-size: 18px;
+    line-height: 22px;
+    align-items: center;
+  }
+  .about-project__text {
+    font-size: 11px;
+    line-height: 16px;
+    margin-top: 16px;
+  }
+
+  .about-project__timetable {
+    font-size: 11px;
+    line-height: 13px;
+  }
+}

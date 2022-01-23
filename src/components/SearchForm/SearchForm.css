@@ -1,0 +1,91 @@
+.search {
+  margin: 70px 70px 10px;
+}
+.search__movie {
+  border: 1.5px solid #aaaaaa;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.search__item {
+  margin: 0 0 0 25px;
+  align-self: center;
+  color: #a0a0a0;
+}
+.search__button {
+  background-color: black;
+  color: white;
+  padding: 0;
+  margin: 10px;
+  width: 100px;
+  height: 50px;
+}
+.search__tumb-btn {
+  display: inline-block;
+  width: 38px;
+  height: 20px;
+  border-radius: 19px;
+  background: #bfbfbf;
+  z-index: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition-duration: 300ms;
+}
+.search__tumb-btn::after {
+  content: "";
+  height: 15px;
+  width: 15px;
+  border-radius: 17px;
+  background: #fff;
+  top: 2px;
+  margin: 0;
+  transition-duration: 300ms;
+  position: absolute;
+  z-index: 1;
+}
+.tumb-on {
+  background: #2be080;
+}
+.tumb-on::after {
+  left: 20px;
+}
+
+.search__tumb {
+  display: flex;
+  margin: 26px 0 0;
+  border-bottom: 1px solid #aaaaaa;
+  padding-bottom: 43px;
+}
+
+.search__text {
+  margin: 0 0 0 14px;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 13px;
+  line-height: 18px;
+  align-self: center;
+}
+@media screen and (max-width: 769px) {
+  .search {
+    margin: 70px 30px 10px;
+  }
+}
+@media screen and (max-width: 450px) {
+  .search {
+    margin: 70px 14px 10px;
+  }
+  .search__button {
+    margin: 6px;
+    width: 80px;
+    height: 44px;
+  }
+  .search__item {
+    margin: 0 0 0 12px;
+  }
+  .search__text {
+    font-size: 11px;
+  }
+}
