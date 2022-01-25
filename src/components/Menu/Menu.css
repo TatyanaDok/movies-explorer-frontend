@@ -1,5 +1,5 @@
 .header__logo-nav {
-  background: url(../../images/logoBlack.jpg);
+  background: url(../../images/logoblack.svg);
   width: 38px;
   height: 38px;
 }
@@ -22,7 +22,7 @@
 }
 .header__films {
   margin: 0 16px 0 50px;
-  font-weight: 500;
+  font-weight: normal;
   font-style: normal;
   font-size: 13px;
   line-height: 18px;
@@ -39,9 +39,9 @@
   color: black;
 }
 .header__account {
-  width: 80px;
-  background: url(../../images/icon-accaunt.svg) no-repeat top right;
-  align-self: center;
+  display: flex;
+  justify-content: space-between;
+  width: 100px;
   font-weight: 500;
   font-style: normal;
   font-size: 14px;
@@ -49,6 +49,18 @@
   text-decoration: none;
   color: black;
   cursor: pointer;
+}
+.accaunt {
+  margin: 0;
+  align-self: center;
+}
+.account__icon {
+  background: #f9f9f9;
+  object-fit: none;
+  border-radius: 6px;
+}
+.menu__active {
+  font-weight: 500;
 }
 @media screen and (max-width: 769px) {
   .header-nav {

@@ -11,17 +11,32 @@ function Footer() {
         <p className="footer__copyright">&copy; 2022</p>
         <ul className="footer__links">
           <li className="footer__link-item">
-            <a href="https://practicum.yandex.ru" className="footer__link">
+            <a
+              href="https://practicum.yandex.ru"
+              className="footer__link"
+              target="_blank"
+              rel="noreferrer"
+            >
               Яндекс.Практикум
             </a>
           </li>
           <li className="footer__link-item">
-            <a href="https://github.com/TatyanaDok" className="footer__link">
+            <a
+              href="https://github.com/TatyanaDok"
+              className="footer__link"
+              target="_blank"
+              rel="noreferrer"
+            >
               Github
             </a>
           </li>
           <li className="footer__link-item">
-            <a href="https://www.facebook.com/" className="footer__link">
+            <a
+              href="https://www.facebook.com/"
+              className="footer__link"
+              target="_blank"
+              rel="noreferrer"
+            >
               {" "}
               Facebook
             </a>

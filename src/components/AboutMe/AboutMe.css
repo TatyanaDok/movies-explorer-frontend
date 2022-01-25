@@ -17,6 +17,7 @@
 }
 .about-me__info {
   max-width: 600px;
+  padding-right: 30px;
 }
 .about-me__name {
   margin: 0 0 18px;
@@ -99,7 +100,9 @@
     flex-direction: column-reverse;
     align-content: center;
   }
-
+  .about-me__info {
+    padding: 0;
+  }
   .about-me__name {
     margin: 40px 0 18px;
     font-size: 30px;

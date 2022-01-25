@@ -18,10 +18,20 @@ function AboutMe() {
             самостоятельно,очень увлеклась и решила сменить род деятельности.{" "}
           </p>
           <div className="about-me__links">
-            <a className="about-me__link" href="https://www.facebook.com/">
+            <a
+              className="about-me__link"
+              href="https://www.facebook.com/"
+              target="_blank"
+              rel="noreferrer"
+            >
               Facebook
             </a>
-            <a className="about-me__link" href="https://github.com/TatyanaDok">
+            <a
+              className="about-me__link"
+              href="https://github.com/TatyanaDok"
+              target="_blank"
+              rel="noreferrer"
+            >
               Github
             </a>
           </div>

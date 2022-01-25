@@ -11,7 +11,7 @@
   justify-content: space-between;
 }
 .film__name {
-  margin: 0 14px 0 0;
+  margin: 0;
   font-weight: 500;
   font-style: normal;
   font-size: 15px;
@@ -39,23 +39,26 @@
   font-style: normal;
   line-height: 11px;
   font-size: 12px;
-  background-color: white;
-  display: none;
+  background: #f9f9f9;
   align-self: center;
+  color: black;
+  border-radius: 30px;
 }
 .film__btn-saved {
   background: url(../../images/button-saved.jpg) no-repeat center;
-  display: none;
   font-size: 0;
   margin: 18px 0;
 }
 .film__btn-del {
   background: url(../../images/button-delete.svg) no-repeat center;
-  display: block;
-  font-size: 0;
+  border: none;
   margin: 18px 0;
+  padding: 0;
+  width: 100px;
+  height: 29px;
+  align-self: center;
 }
-@media screen and (max-width: 515px) {
+@media screen and (max-width: 1000px) {
   .film__name {
     font-size: 12px;
   }
@@ -64,5 +67,8 @@
   }
   .film__btn-save {
     margin: 14px 0;
+  }
+  .film__info {
+    padding: 14px 14px;
   }
 }

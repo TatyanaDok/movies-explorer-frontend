@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import "./MenuBurger.css";
+import icon from "../../images/icon-accaunt.svg";
 function MenuBurger() {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -56,8 +57,9 @@ function MenuBurger() {
             </NavLink>
           </div>
           <div className="burger__account">
-            <NavLink exact to="/profile" className="header__account">
-              Аккаунт
+            <NavLink to="/profile" className="header__account">
+              <p className="accaunt">Аккаунт</p>
+              <img src={icon} alt="иконка" className="account__icon" />
             </NavLink>
           </div>
         </div>

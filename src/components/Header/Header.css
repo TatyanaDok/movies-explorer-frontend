@@ -7,10 +7,9 @@
 }
 
 .header__logo {
-  border-radius: 50%;
   width: 38px;
   height: 38px;
-  background: url(../../images/logo.jpg);
+  background: url(../../images/logo.svg);
 }
 .header__logo:hover {
   opacity: 0.7;
@@ -22,6 +21,7 @@
   font-style: normal;
   font-size: 12px;
   line-height: 16px;
+  align-self: center;
 }
 
 .header__register {
@@ -38,16 +38,14 @@
   background: #000000;
   color: white;
   padding: 0;
-  border-radius: 5px;
+  border-radius: 3px;
   cursor: pointer;
-  background: #474747;
-  box-shadow: 0px 5px #292929, 0px 5px 5px rgba(0, 0, 0, 0.15);
-  transition: 300ms;
   border: none;
 }
 .header__button-entry:hover {
-  transform: translateY(5px);
-  box-shadow: 0px 0px transparent, 0px 5px 5px rgba(0, 0, 0, 0.15);
+  opacity: 0.7;
+  transition: 0.3s ease-in-out opacity;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 769px) {
@@ -55,7 +53,7 @@
     padding: 18px 30px;
   }
   .header__logo {
-    background: url(../../images/logoBlack.jpg);
+    background: url(../../images/logoblack.svg);
   }
 }
 @media screen and (max-width: 374px) {
@@ -69,6 +67,5 @@
   .header__button-entry {
     width: 54px;
     height: 26px;
-    box-shadow: 0px 3px #292929, 0px 3px 3px rgba(0, 0, 0, 0.1);
   }
 }

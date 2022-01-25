@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
+import { Route } from "react-router-dom";
 import film from "../../images/testImage.jpg";
 import "./MoviesCard.css";
 function MoviesCard() {
+  const [isSaved, setIsSaved] = useState(false);
+  function handleClick() {
+    if (isSaved) {
+      setIsSaved(false);
+    } else {
+      setIsSaved(true);
+    }
+  }
   return (
     <div className="film">
       <div className="film__info">
@@ -9,9 +18,17 @@ function MoviesCard() {
         <div className="film__time">27 минут</div>
       </div>
       <img src={film} alt="Кадр из фильма" className="film__image" />
-      <button className="film__btn-save film__btn-saved film__btn-del">
-        Сохранить
-      </button>
+      <Route exact path="/movies">
+        <button
+          className={`film__btn-save ${isSaved ? "film__btn-saved" : ""}`}
+          onClick={handleClick}
+        >
+          Сохранить
+        </button>
+      </Route>
+      <Route exact path="/saved-movies">
+        <button className="film__btn-del" />
+      </Route>
     </div>
   );
 }

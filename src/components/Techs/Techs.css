@@ -41,7 +41,7 @@
 
 .techs__list-item {
   background: #e8e8e8;
-  border-radius: 20%;
+  border-radius: 10px;
   margin: 0;
   display: flex;
   justify-content: center;
@@ -79,6 +79,7 @@
 @media screen and (max-width: 374px) {
   .techs {
     padding: 70px 18px;
+    background-color: #ffffff;
   }
 
   .techs__title {

@@ -9,18 +9,24 @@ function Portfolio() {
         <a
           className="portfolio__link"
           href="https://github.com/TatyanaDok/how-to-learn"
+          target="_blank"
+          rel="noreferrer"
         >
           Статичный сайт
         </a>
         <a
           className="portfolio__link"
           href="https://github.com/TatyanaDok/russian-travel"
+          target="_blank"
+          rel="noreferrer"
         >
           Адаптивный сайт
         </a>
         <a
           className="portfolio__link"
           href="https://github.com/TatyanaDok/react-mesto-auth"
+          target="_blank"
+          rel="noreferrer"
         >
           Одностраничное приложение
         </a>

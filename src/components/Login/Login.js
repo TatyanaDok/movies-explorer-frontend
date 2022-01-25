@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Link } from "react-router-dom";
-import logo from "../../images/logoBlack.jpg";
+import logo from "../../images/logoblack.svg";
 
 function Login({ textButton, formTitle, formQuestion }) {
   return (

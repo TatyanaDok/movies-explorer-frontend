@@ -86,6 +86,11 @@
   .burger__popup {
     width: 100%;
   }
+  .burger {
+    width: 40px;
+    height: 43px;
+    right: 14px;
+  }
 }
 
 .burger__popup_open {
