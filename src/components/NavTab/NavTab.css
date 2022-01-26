@@ -1,0 +1,30 @@
+.NavTab {
+  background-color: black;
+  padding: 24px 0;
+  text-align: center;
+}
+.NavTab__links {
+  margin: 0;
+}
+.NavTab__link {
+  color: white;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 13px;
+  line-height: 16px;
+  margin-right: 40px;
+  transition: 0.5s;
+  display: inline-block;
+}
+.NavTab__link:hover {
+  transform: scale(1.5, 1.5);
+}
+.NavTab__link:last-of-type {
+  margin-right: 0;
+}
+@media screen and (max-width: 374px) {
+  .NavTab__link {
+    font-size: 11px;
+    margin-right: 24px;
+  }
+}
