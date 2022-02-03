@@ -29,7 +29,6 @@ function MenuBurger() {
           <button className="burger__cross" onClick={closePopup}></button>
           <div className="burger__box">
             <NavLink
-              exact
               to="/"
               activeClassName="burger__link_active"
               className="burger__link"
@@ -38,7 +37,6 @@ function MenuBurger() {
               Главная
             </NavLink>
             <NavLink
-              exact
               to="/movies"
               activeClassName="burger__link_active"
               className="burger__link"
@@ -47,7 +45,6 @@ function MenuBurger() {
               Фильмы
             </NavLink>
             <NavLink
-              exact
               to="/saved-movies"
               activeClassName="burger__link_active"
               className="burger__link"

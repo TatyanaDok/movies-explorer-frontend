@@ -34,8 +34,12 @@
 }
 
 .profile__input-box:first-child {
-  margin: 0 0 17px 0;
+  margin-top: 0;
   border-bottom: 1px solid #e8e8e8;
+  margin-bottom: 2px;
+}
+.profile__input-box {
+  margin-top: 15px;
 }
 
 .profile__input-name {
@@ -91,6 +95,7 @@
   cursor: pointer;
   transition: opacity 0.2s ease-in-out;
   padding: 0;
+  text-decoration: none;
 }
 
 .profile__button-edit:hover {

@@ -7,12 +7,6 @@ function MoviesCardList() {
     <>
       <section className="films">
         <MoviesCard />
-        <MoviesCard />
-        <MoviesCard />
-        <MoviesCard />
-        <MoviesCard />
-        <MoviesCard />
-        <MoviesCard />
       </section>
       <div className="more">
         <Route exact path="/movies">
