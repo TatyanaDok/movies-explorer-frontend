@@ -1,33 +1,48 @@
-import React, { useState } from "react";
-import { Route } from "react-router-dom";
-import film from "../../images/testImage.jpg";
+import React from "react";
 import "./MoviesCard.css";
-function MoviesCard() {
-  const [isSaved, setIsSaved] = useState(false);
-  function handleClick() {
-    if (isSaved) {
-      setIsSaved(false);
-    } else {
-      setIsSaved(true);
-    }
+import { getTimeFromMin } from "../../utils/utils";
+import { Route } from "react-router-dom";
+
+function MoviesCard({ card, onSave, onDelete, saved, savedPage }) {
+  function handleSaveClick() {
+    onSave(card);
   }
+
+  function handleDeleteClick() {
+    onDelete(card);
+  }
+
   return (
     <div className="film">
       <div className="film__info">
-        <h3 className="film__name">В погоне за Бенкси</h3>
-        <div className="film__time">27 минут</div>
+        <h3 className="film__name">{card.nameRU}</h3>
+        <div className="film__time">{getTimeFromMin(card.duration)}</div>
       </div>
-      <img src={film} alt="Кадр из фильма" className="film__image" />
+      <a
+        className="movie__link"
+        href={card.trailer || card.trailerLink}
+        target="_blank"
+        rel="noreferrer"
+      >
+        <img
+          src={`${card.image}`}
+          alt="Кадр из фильма"
+          className="film__image"
+        />
+      </a>
       <Route exact path="/movies">
         <button
-          className={`film__btn-save ${isSaved ? "film__btn-saved" : ""}`}
-          onClick={handleClick}
+          className={`film__btn-save ${savedPage ? "film__btn-saved" : ""}`}
+          onClick={savedPage || saved ? handleDeleteClick : handleSaveClick}
         >
           Сохранить
         </button>
       </Route>
       <Route exact path="/saved-movies">
-        <button className="film__btn-del" />
+        <button
+          className={`film__btn - del ${savedPage ? "film__btn-save" : ""}`}
+          onClick={savedPage || saved ? handleDeleteClick : handleSaveClick}
+        />
       </Route>
     </div>
   );

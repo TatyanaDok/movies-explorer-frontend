@@ -1,21 +1,12 @@
-class MoviesApi {
-  constructor({ url, headers }) {
-    this._url = url;
-    this._headers = headers;
-  }
+import { MOVIES_URL } from './constants';
 
-  getMovies() {
-    return fetch(`${this._url}/beatfilm-movies`, {
-      credentials: "same-origin",
-      headers: this._headers,
-    }).then(this._checkResponse);
-  }
-}
-const moviesApi = new MoviesApi({
-  url: " https://api.nomoreparties.co",
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
-
-export default moviesApi;
+// --- API ДЛЯ ОТПРАВКИ ЗАПРОСА НА СТОРОННИЙ СЕРВЕР ---
+export function getMovies() {
+  return fetch(MOVIES_URL)
+  .then(res => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  })
+};

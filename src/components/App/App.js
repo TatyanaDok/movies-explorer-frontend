@@ -1,71 +1,39 @@
-import React, { useState, useEffect } from "react";
-import {
-  Redirect,
-  Route,
-  Switch,
-  useHistory,
-  withRouter,
-} from "react-router-dom";
-import Movies from "../Movies/Movies";
+import "./App.css";
+import React, { useEffect, useState } from "react";
+import { Redirect, Route, Switch, useHistory } from "react-router-dom";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import Main from "../Main/Main";
+import Movies from "../Movies/Movies";
+import SavedMovies from "../SavedMovies/SavedMovies";
 import Profile from "../Profile/Profile";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
-import SavedMovies from "../Movies/Movies";
 import NotFound from "../NotFound/NotFound";
-import CurrentUserContext from "../../contexts/CurrentUserContext";
-import moviesApi from "../../utils/MoviesApi";
-import { SUCCESSFUL_CODE } from "../../utils/constants";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import mainApi from "../../utils/MainApi";
-import Preloader from "../Preloader/Preloader";
+import { SUCCESSFUL_CODE } from "../../utils/constants";
+
 function App() {
   const history = useHistory();
-  const [currentUser, setCurrentUser] = React.useState({});
+  const [currentUser, setCurrentUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
-  const [isTokenChecked, setIsTokenChecked] = useState(false);
-  const [savedMovies, setSavedMovies] = React.useState([]);
-  const [isError, setIsError] = React.useState(false);
-  const [infoMessage, setInfoMessage] = React.useState({
+  const [isLoading, setIsLoading] = useState(true);
+  const [savedMovies, setSavedMovies] = useState([]);
+  const [isError, setIsError] = useState(false);
+  const [infoMessage, setInfoMessage] = useState({
     isShown: false,
     message: "",
     code: SUCCESSFUL_CODE,
   });
 
-  React.useEffect(() => {
-    mainApi
-      .getUser()
-      .then((data) => {
-        setLoggedIn(true);
-        setCurrentUser(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [loggedIn]);
-
-  useEffect(() => {
-    if (loggedIn) {
-      mainApi
-        .getMovies()
-        .then((data) => {
-          setSavedMovies(data);
-          setLoggedIn(true);
-          setIsError(false);
-        })
-        .catch((err) => {
-          setIsError(true);
-          console.log(err);
-        });
-    }
-  }, [loggedIn]);
-
-  // обработчик регистрации пользователя
   function handleRegister(name, email, password) {
     mainApi
       .register(name, email, password)
       .then((data) => {
-        handleLogin(data.email, password);
+        if (data) {
+          console.log(data);
+          handleLogin(data.email, password);
+        }
       })
       .catch(({ message, statusCode }) => {
         setInfoMessage({
@@ -78,23 +46,30 @@ function App() {
       });
   }
 
-  // обработчик авторизации пользователя
   function handleLogin(email, password) {
+    setIsLoading(true);
     mainApi
       .login(email, password)
-      .then((res) => {
+      .then((user) => {
         setLoggedIn(true);
-        history.push("/movies");
+        setCurrentUser(user);
       })
-      .catch((err) => {
-        console.log(`Произошла ошибка: ${err}`);
-      });
+      .catch(({ message, statusCode }) => {
+        setInfoMessage({
+          ...infoMessage,
+          isShown: true,
+          message,
+          code: statusCode,
+          type: "login",
+        });
+      })
+      .finally(() => setIsLoading(false));
   }
-  // обработчик выхода пользователя
+
   function handleSignOut() {
     mainApi
       .signout()
-      .then(() => {
+      .then((res) => {
         setLoggedIn(false);
         setCurrentUser({});
         localStorage.clear();
@@ -104,11 +79,38 @@ function App() {
         console.log(err);
       });
   }
+  useEffect(() => {
+    setIsLoading(true);
 
-  // обработчик изменения данных пользователя
-  function handleUpdateUser({ name, email }) {
     mainApi
-      .updateUserProfile(name, email)
+      .getUser()
+      .then((user) => {
+        setLoggedIn(true);
+        setCurrentUser(user);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => setIsLoading(false));
+  }, [loggedIn]);
+
+  useEffect(() => {
+    if (loggedIn) {
+      mainApi
+        .getUsersMovies()
+        .then((data) => {
+          setSavedMovies(data);
+          setIsError(false);
+        })
+        .catch((err) => {
+          setIsError(true);
+          console.log(err);
+        });
+    }
+  }, [loggedIn]);
+  function handleUpdateUser(name, email) {
+    mainApi
+      .updateProfile(name, email)
       .then((data) => {
         setCurrentUser(data);
         setInfoMessage({
@@ -128,7 +130,6 @@ function App() {
       });
   }
 
-  // обработчик добавления фильма в избранное
   function handleSaveMovie(movie) {
     mainApi
       .saveNewMovie(movie)
@@ -138,7 +139,6 @@ function App() {
       .catch((err) => console.log(err));
   }
 
-  // обработчик удаления фильма из избранного
   function handleDeleteMovie(movie) {
     mainApi
       .deleteMovie(movie._id)
@@ -151,7 +151,6 @@ function App() {
       .catch((err) => console.log(err));
   }
 
-  // обработчик сброса вывода сообщения с сервера
   function handleClickResetInfoMessage() {
     if (infoMessage.isShown) {
       setInfoMessage({
@@ -166,69 +165,73 @@ function App() {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      {isTokenChecked ? (
-        <Preloader />
-      ) : (
+      <div
+        className="root"
+        onClick={infoMessage.isShown ? handleClickResetInfoMessage : null}
+      >
         <>
-          <div className="root">
-            <Switch>
-              <ProtectedRoute
-                exact
-                path="/saved-movies"
-                loggedIn={loggedIn}
-                component={SavedMovies}
-                list={savedMovies}
-                onDeleteClick={handleDeleteMovie}
-                isError={isError}
-              />
-              <ProtectedRoute
-                exact
-                path="/profile"
-                isLoggedIn={loggedIn}
-                component={Profile}
-                onSignOut={handleSignOut}
-                onUpdate={handleUpdateUser}
-                infoMessage={infoMessage}
-              />
+          <Switch>
+            <ProtectedRoute
+              exact
+              path="/movies"
+              loggedIn={loggedIn}
+              component={Movies}
+              savedMoviesList={savedMovies}
+              onSaveClick={handleSaveMovie}
+              onDeleteClick={handleDeleteMovie}
+            />
 
-              <Route exact path="/">
-                <Main isLoggedIn={loggedIn} />
-              </Route>
+            <ProtectedRoute
+              exact
+              path="/saved-movies"
+              loggedIn={loggedIn}
+              component={SavedMovies}
+              list={savedMovies}
+              onDeleteClick={handleDeleteMovie}
+              isError={isError}
+            />
 
-              <Route path="/sign-up">
-                {loggedIn ? (
-                  <Redirect to="/movies" />
-                ) : (
-                  <Register
-                    onRegister={handleRegister}
-                    infoMessage={infoMessage}
-                  />
-                )}
-              </Route>
+            <ProtectedRoute
+              exact
+              path="/profile"
+              loggedIn={loggedIn}
+              component={Profile}
+              onSignOut={handleSignOut}
+              onUpdate={handleUpdateUser}
+              infoMessage={infoMessage}
+            />
 
-              <Route path="/sign-in">
-                {loggedIn ? (
-                  <Redirect to="/movies" />
-                ) : (
-                  <Login onLogin={handleLogin} infoMessage={infoMessage} />
-                )}
-              </Route>
-              <ProtectedRoute
-                exact
-                path="/movies"
-                isLoggedIn={loggedIn}
-                component={Movies}
-                savedMoviesList={savedMovies}
-                onDeleteClick={handleDeleteMovie}
-              />
-              <Route path="*">
-                <NotFound />
-              </Route>
-            </Switch>
-          </div>
+            <Route path="/" exact>
+              <Main isLoading={isLoading} />
+            </Route>
+
+            <Route path="/signup">
+              {loggedIn ? (
+                <Redirect to="/movies" />
+              ) : (
+                <Register
+                  onRegister={handleRegister}
+                  infoMessage={infoMessage}
+                />
+              )}
+            </Route>
+
+            <Route path="/signin">
+              {loggedIn ? (
+                <Redirect to="/movies" />
+              ) : (
+                <Login onLogin={handleLogin} infoMessage={infoMessage} />
+              )}
+            </Route>
+
+            <Route path="*">
+              <NotFound />
+            </Route>
+          </Switch>
         </>
-      )}
+      </div>
     </CurrentUserContext.Provider>
   );
 }
-export default withRouter(App);
+
+export default App;

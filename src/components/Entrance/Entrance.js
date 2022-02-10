@@ -17,15 +17,13 @@ function Entrance({
 }) {
   const { values, errors, isValid, handleChange } = useFormWithValidation();
 
-  // ---ОБРАБОТЧИКИ---
   function handleSubmit(e) {
     e.preventDefault();
-    type === "sign-up"
+    type === "signup"
       ? onSubmit(values.name, values.email, values.password)
       : onSubmit(values.email, values.password);
   }
 
-  //---РАЗМЕТКА JSX---
   return (
     <section className="entrance">
       <Link to="/">
@@ -33,7 +31,7 @@ function Entrance({
       </Link>
       <h2 className="entrance__title">{title}</h2>
       <form className="entrance__form" onSubmit={handleSubmit}>
-        {type === "sign-up" && (
+        {type === "signup" && (
           <label className="entrance__label">
             Имя
             <input
@@ -90,10 +88,12 @@ function Entrance({
             {errors.password || ""}
           </span>
         </label>
+
         <InfoMessage {...infoMessage} />
+
         <button
           className={`entrance__submit-btn app__link
-            ${type === "sign-up" && "entrance__login-btn"}
+            ${type === "signup" && "entrance__login-btn"}
           `}
           type="submit"
           disabled={!isValid}

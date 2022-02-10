@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import "./Menu.css";
-import icon from "../../images/icon-accaunt.svg";
+import icon from "../../images/icon.svg";
 
 function Menu() {
   return (

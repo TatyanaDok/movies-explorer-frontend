@@ -1,9 +1,9 @@
 import "./InfoMessage.css";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { INVALID_CODE, SUCCESSFUL_CODE } from "../../utils/constants";
 
 function InfoMessage({ isShown, message, code, type }) {
-  const [textMessage, setTextMessage] = React.useState("");
+  const [textMessage, setTextMessage] = useState("");
 
   function getMessage(type) {
     if (type === "profile") {
@@ -15,8 +15,7 @@ function InfoMessage({ isShown, message, code, type }) {
     }
   }
 
-  // ---ЭФФЕКТЫ---
-  React.useEffect(() => {
+  useEffect(() => {
     switch (code) {
       case SUCCESSFUL_CODE:
         setTextMessage("Данные успешно обновлены");
@@ -29,7 +28,6 @@ function InfoMessage({ isShown, message, code, type }) {
     }
   }, [code, message, type]);
 
-  //---РАЗМЕТКА JSX---
   return (
     <div className="message">
       {isShown && (

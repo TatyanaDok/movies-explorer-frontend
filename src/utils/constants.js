@@ -1,4 +1,4 @@
-const BASE_URL = " https://api.and.nomoredomains.rocks";
+const BASE_URL = "https://api.and.nomoredomains.rocks";
 const MOVIES_URL = "https://api.nomoreparties.co/beatfilm-movies";
 
 const SUCCESSFUL_CODE = 200;

@@ -1,35 +1,76 @@
-import React, { useState } from "react";
 import "./SearchForm.css";
-function SearchForm() {
-  const [isActive, setIsActive] = useState(false);
-  function handleClick() {
-    if (isActive) {
-      setIsActive(false);
-    } else {
-      setIsActive(true);
-    }
+import React from "react";
+import { useFormWithValidation } from "../../hooks/useFormWithValidation";
+
+function SearchForm({
+  onSearchClick,
+  savedMoviesPage,
+  shortFilms,
+  onCheckbox,
+}) {
+  const { values, errors, isValid, setValues, handleChange, setIsValid } =
+    useFormWithValidation();
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    onSearchClick(values.query);
   }
+
+  React.useEffect(() => {
+    if (!savedMoviesPage) {
+      const input = localStorage.getItem("searchQuery");
+      if (input) {
+        setValues({ query: input });
+        setIsValid(true);
+      }
+    }
+  }, [savedMoviesPage, setValues, setIsValid]);
+
   return (
-    <section className="search">
-      <div className="search__movie">
+    <div className="search">
+      <form className="search__movie" onSubmit={handleSubmit}>
         <input
-          required
-          id="film"
-          name="film"
           type="text"
           placeholder="Фильм"
           className="search__item"
-        ></input>
-        <button className="search__button">Поиск</button>
-      </div>
+          name="query"
+          value={values.query || ""}
+          onChange={handleChange}
+          required
+        />
+        <span id="email-error" className="search-form__error">
+          {errors.query ? "Нужно ввести ключевое слово" : ""}
+        </span>
+        <button className="search__button" type="submit" disabled={!isValid}>
+          Поиск
+        </button>
+      </form>
       <div className="search__tumb">
         <label
-          className={`search__tumb-btn ${isActive ? "tumb-on" : ""}`}
-          onClick={handleClick}
-        ></label>
+          className={`search-form__filter
+            ${shortFilms === "on" ? "search-form__filter_active" : null}`}
+        >
+          <input
+            className="search-form__radio search-form__radio_off"
+            type="radio"
+            name="shortFilms"
+            value="off"
+            checked={shortFilms === "off" ? true : false}
+            onChange={onCheckbox}
+          />
+          <input
+            className="search-form__radio search-form__radio_on"
+            type="radio"
+            name="shortFilms"
+            value="on"
+            checked={shortFilms === "on" ? true : false}
+            onChange={onCheckbox}
+          />
+          <span className="search-form__switch"></span>
+        </label>
         <p className="search__text">Короткометражки</p>
       </div>
-    </section>
+    </div>
   );
 }
 

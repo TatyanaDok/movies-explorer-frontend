@@ -1,8 +1,7 @@
 .message {
   width: 100%;
-  margin-top: auto;
   min-height: 13px;
-  margin-bottom: 20px;
+  margin: 0 0 20px;
 }
 
 .message__text {
@@ -16,16 +15,4 @@
 
 .message__text_type_success {
   color: #2be080;
-}
-
-@media screen and (max-width: 769px) {
-  .message {
-    margin-top: 0;
-  }
-}
-
-@media screen and (max-width: 650px) {
-  .message {
-    margin-top: auto;
-  }
 }

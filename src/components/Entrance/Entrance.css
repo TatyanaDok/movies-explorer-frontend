@@ -1,5 +1,4 @@
 .entrance {
-  flex-grow: 1;
   padding: 70px 0;
   display: flex;
   flex-direction: column;
@@ -7,6 +6,7 @@
   width: 396px;
   color: #000;
   margin: 0 auto;
+  flex-grow: 1;
 }
 
 .entrance__title {
@@ -79,6 +79,7 @@
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
+  padding: 0;
 }
 
 .entrance__submit-btn:disabled {
@@ -101,10 +102,9 @@
 }
 
 @media screen and (max-width: 769px) {
-  .entrance__form {
-    flex-grow: 0;
+  .entrance {
+    padding: 232px 0;
   }
-
   .entrance__login-btn {
     margin-top: 138px;
   }
@@ -139,7 +139,9 @@
   .entrance__title {
     margin: 50px 0 80px;
   }
-
+  .entrance__label:last-of-type {
+    margin-bottom: 220px;
+  }
   .entrance__subtitle {
     font-size: 12px;
     line-height: 15px;
