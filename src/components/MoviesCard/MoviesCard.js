@@ -32,7 +32,7 @@ function MoviesCard({ card, onSave, onDelete, saved, savedPage }) {
       </a>
       <Route exact path="/movies">
         <button
-          className={`film__btn-save ${savedPage ? "film__btn-saved" : ""}`}
+          className={`film__btn  ${saved ? "film__btn-saved" : ""}`}
           onClick={savedPage || saved ? handleDeleteClick : handleSaveClick}
         >
           Сохранить
@@ -40,7 +40,7 @@ function MoviesCard({ card, onSave, onDelete, saved, savedPage }) {
       </Route>
       <Route exact path="/saved-movies">
         <button
-          className={`film__btn - del ${savedPage ? "film__btn-save" : ""}`}
+          className="film__btn-del"
           onClick={savedPage || saved ? handleDeleteClick : handleSaveClick}
         />
       </Route>

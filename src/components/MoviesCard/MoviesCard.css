@@ -59,7 +59,7 @@
   object-fit: cover;
   overflow: hidden;
 }
-.film__btn-save {
+.film__btn {
   border: none;
   margin: 18px 0;
   padding: 9px 0;
