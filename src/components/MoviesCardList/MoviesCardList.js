@@ -24,9 +24,9 @@ function MoviesCardList({
   const [isMount, setIsMount] = useState(true);
 
   useEffect(() => {
-    if (width > 1331) {
+    if (width > 1280) {
       setCardsShowParams({ sum: 8, more: 4 });
-    } else if (width <= 1331 && width > 1027) {
+    } else if (width <= 1100 && width > 1027) {
       setCardsShowParams({ sum: 12, more: 3 });
     } else if (width <= 1027 && width > 629) {
       setCardsShowParams({ sum: 8, more: 2 });

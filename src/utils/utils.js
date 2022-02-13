@@ -1,11 +1,7 @@
-// ---ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ---
-
-// ф-ия фильтрации фильмов по длительности
 export function filterShortMovies(movies) {
   return movies.filter((item) => item.duration < 40);
 }
 
-// ф-ия фильтрации фильмов по запросу и длительности
 export function filterMovies(movies, searchQuery, shortFilms) {
   const moviesByQuery = movies.filter((item) => {
     const strRu = String(item.nameRU).toLowerCase();
@@ -20,7 +16,6 @@ export function filterMovies(movies, searchQuery, shortFilms) {
   return moviesByQuery;
 }
 
-// ф-ия проверки ссылок изображений на осутствие и их преобразование
 export function changeMovies(movies) {
   movies.forEach((movie) => {
     if (!movie.image) {
@@ -33,14 +28,12 @@ export function changeMovies(movies) {
   });
 }
 
-// ф-ия получения сохраненной карточки фильма
 export function getSavedMovieCard(arr, id) {
   return arr.find((item) => {
     return item.movieId === id;
   });
 }
 
-// ф-ия преобразования времени
 export function getTimeFromMin(mins) {
   const hours = Math.trunc(mins / 60);
   const minutes = mins % 60;

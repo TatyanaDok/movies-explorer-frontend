@@ -50,9 +50,10 @@ function App() {
     setIsLoading(true);
     mainApi
       .login(email, password)
-      .then((user) => {
+      .then((data) => {
         setLoggedIn(true);
-        setCurrentUser(user);
+        setCurrentUser(data);
+        console.log(data);
       })
       .catch(({ message, statusCode }) => {
         setInfoMessage({
@@ -84,9 +85,9 @@ function App() {
 
     mainApi
       .getUser()
-      .then((user) => {
+      .then((data) => {
         setLoggedIn(true);
-        setCurrentUser(user);
+        setCurrentUser(data);
       })
       .catch((err) => {
         console.log(err);

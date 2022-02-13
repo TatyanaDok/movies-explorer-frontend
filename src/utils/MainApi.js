@@ -14,7 +14,6 @@ class MainApi {
 
   getUser() {
     return fetch(this._userUrl, {
-      headers: this._headers,
       credentials: "include",
     }).then(this._checkResponse);
   }
@@ -116,6 +115,7 @@ class MainApi {
 const mainApi = new MainApi({
   baseUrl: BASE_URL,
   headers: {
+    Accept: "application/json",
     "Content-Type": "application/json;charset=utf-8",
   },
 });
