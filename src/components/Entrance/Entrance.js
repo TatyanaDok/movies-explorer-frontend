@@ -14,6 +14,7 @@ function Entrance({
   linkName,
   onSubmit,
   infoMessage,
+  isFormDisabled,
 }) {
   const { values, errors, isValid, handleChange } = useFormWithValidation();
 
@@ -30,7 +31,11 @@ function Entrance({
         <img className="form__logo" src={logo} alt="Логотип" />
       </Link>
       <h2 className="entrance__title">{title}</h2>
-      <form className="entrance__form" onSubmit={handleSubmit}>
+      <form
+        className="entrance__form"
+        onSubmit={handleSubmit}
+        disabled={isFormDisabled}
+      >
         {type === "signup" && (
           <label className="entrance__label">
             Имя
@@ -66,6 +71,7 @@ function Entrance({
             required
             value={values.email || ""}
             onChange={handleChange}
+            pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
           />
           <span id="email-error" className="entrance__error">
             {errors.email || ""}

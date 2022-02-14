@@ -20,6 +20,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [savedMovies, setSavedMovies] = useState([]);
   const [isError, setIsError] = useState(false);
+  const [isFormDisabled, setIsFormDisabled] = useState(false);
   const [infoMessage, setInfoMessage] = useState({
     isShown: false,
     message: "",
@@ -27,6 +28,7 @@ function App() {
   });
 
   function handleRegister(name, email, password) {
+    setIsFormDisabled(true);
     mainApi
       .register(name, email, password)
       .then((data) => {
@@ -43,11 +45,12 @@ function App() {
           code: statusCode,
           type: "register",
         });
-      });
+      })
+      .finally(() => setIsFormDisabled(false));
   }
 
   function handleLogin(email, password) {
-    setIsLoading(true);
+    setIsFormDisabled(true);
     mainApi
       .login(email, password)
       .then((data) => {
@@ -64,7 +67,7 @@ function App() {
           type: "login",
         });
       })
-      .finally(() => setIsLoading(false));
+      .finally(() => setIsFormDisabled(false));
   }
 
   function handleSignOut() {
@@ -100,6 +103,7 @@ function App() {
       mainApi
         .getUsersMovies()
         .then((data) => {
+          setLoggedIn(true);
           setSavedMovies(data);
           setIsError(false);
         })
@@ -173,7 +177,6 @@ function App() {
         <>
           <Switch>
             <ProtectedRoute
-              exact
               path="/movies"
               loggedIn={loggedIn}
               component={Movies}
@@ -183,7 +186,6 @@ function App() {
             />
 
             <ProtectedRoute
-              exact
               path="/saved-movies"
               loggedIn={loggedIn}
               component={SavedMovies}
@@ -193,7 +195,6 @@ function App() {
             />
 
             <ProtectedRoute
-              exact
               path="/profile"
               loggedIn={loggedIn}
               component={Profile}
@@ -213,6 +214,7 @@ function App() {
                 <Register
                   onRegister={handleRegister}
                   infoMessage={infoMessage}
+                  isFormDisabled={isFormDisabled}
                 />
               )}
             </Route>
@@ -221,7 +223,11 @@ function App() {
               {loggedIn ? (
                 <Redirect to="/movies" />
               ) : (
-                <Login onLogin={handleLogin} infoMessage={infoMessage} />
+                <Login
+                  onLogin={handleLogin}
+                  infoMessage={infoMessage}
+                  isFormDisabled={isFormDisabled}
+                />
               )}
             </Route>
 

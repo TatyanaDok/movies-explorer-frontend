@@ -1,7 +1,7 @@
 import "./Login.css";
 import Entrance from "../Entrance/Entrance";
 
-function Login({ onLogin, infoMessage }) {
+function Login({ onLogin, infoMessage, ...isFormDisabled }) {
   return (
     <Entrance
       type="signin"
@@ -12,6 +12,7 @@ function Login({ onLogin, infoMessage }) {
       linkName="Регистрация"
       onSubmit={onLogin}
       infoMessage={infoMessage}
+      isFormDisabled={isFormDisabled}
     />
   );
 }
