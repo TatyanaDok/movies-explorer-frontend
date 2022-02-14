@@ -5,36 +5,54 @@ class MainApi {
     this._baseUrl = baseUrl;
     this._userUrl = `${this._baseUrl}/users/me`;
     this._moviesUrl = `${this._baseUrl}/movies`;
-    this._headers = headers;
+    this._token = headers["authorization"];
   }
-
-  _checkResponse = (res) => {
-    return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
-  };
 
   getUser() {
     return fetch(this._userUrl, {
+      headers: {
+        authorization: this._token,
+      },
       credentials: "include",
-    }).then(this._checkResponse);
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    });
   }
 
-  updateProfile(name, email) {
+  updateUserProfile(name, email) {
     return fetch(this._userUrl, {
       method: "PATCH",
-      headers: this._headers,
+      headers: {
+        "Content-Type": "application/json",
+        authorization: this._token,
+      },
       credentials: "include",
       body: JSON.stringify({
         name,
         email,
       }),
-    }).then(this._checkResponse);
+    }).then((res) => {
+      return res.ok
+        ? res.json()
+        : res.json().then((err) => Promise.reject(err));
+    });
   }
 
   getUsersMovies() {
     return fetch(this._moviesUrl, {
-      headers: this._headers,
+      headers: {
+        authorization: this._token,
+      },
       credentials: "include",
-    }).then(this._checkResponse);
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    });
   }
 
   saveNewMovie({
@@ -52,7 +70,10 @@ class MainApi {
   }) {
     return fetch(this._moviesUrl, {
       method: "POST",
-      headers: this._headers,
+      headers: {
+        "Content-Type": "application/json",
+        authorization: this._token,
+      },
       credentials: "include",
       body: JSON.stringify({
         country: country || "no country",
@@ -67,56 +88,90 @@ class MainApi {
         thumbnail,
         movieId: id,
       }),
-    }).then(this._checkResponse);
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    });
   }
 
   deleteMovie(movieId) {
     return fetch(`${this._moviesUrl}/${movieId}`, {
       method: "DELETE",
-      headers: this._headers,
+      headers: {
+        authorization: this._token,
+      },
       credentials: "include",
-    }).then(this._checkResponse);
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    });
   }
 
   register(name, email, password) {
     return fetch(`${this._baseUrl}/signup`, {
       method: "POST",
       credentials: "include",
-      headers: this._headers,
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         name,
         email,
         password,
       }),
-    }).then(this._checkResponse);
+    }).then((res) => {
+      return res.ok
+        ? res.json()
+        : res.json().then((err) => Promise.reject(err));
+    });
   }
 
   login(email, password) {
     return fetch(`${this._baseUrl}/signin`, {
       method: "POST",
       credentials: "include",
-      headers: this._headers,
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         email,
         password,
       }),
-    }).then(this._checkResponse);
+    }).then((res) => {
+      return res.ok
+        ? res.json()
+        : res.json().then((err) => Promise.reject(err));
+    });
   }
 
   signout() {
     return fetch(`${this._baseUrl}/signout`, {
       method: "POST",
       credentials: "include",
-      headers: this._headers,
-    }).then(this._checkResponse);
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        authorization: this._token,
+      },
+    }).then((res) => {
+      if (res.ok) {
+        return res.json;
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    });
   }
 }
 
 const mainApi = new MainApi({
   baseUrl: BASE_URL,
   headers: {
-    Accept: "application/json",
-    "Content-Type": "application/json;charset=utf-8",
+    "Content-Type": "application/json",
   },
 });
 

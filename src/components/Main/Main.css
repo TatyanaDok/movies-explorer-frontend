@@ -47,3 +47,19 @@
     padding: 0 0 28px;
   }
 }
+.header-loggedin {
+  display: flex;
+  justify-content: space-between;
+  padding: 18px 70px;
+  background: #f3c1f8;
+}
+@media screen and (max-width: 769px) {
+  .header-loggedin {
+    padding: 18px 30px;
+  }
+}
+@media screen and (max-width: 450px) {
+  .header-loggedin {
+    padding: 18px 14px;
+  }
+}

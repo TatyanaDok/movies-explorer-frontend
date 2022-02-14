@@ -177,6 +177,7 @@ function App() {
         <>
           <Switch>
             <ProtectedRoute
+              exact
               path="/movies"
               loggedIn={loggedIn}
               component={Movies}
@@ -186,6 +187,7 @@ function App() {
             />
 
             <ProtectedRoute
+              exact
               path="/saved-movies"
               loggedIn={loggedIn}
               component={SavedMovies}
@@ -195,6 +197,7 @@ function App() {
             />
 
             <ProtectedRoute
+              exact
               path="/profile"
               loggedIn={loggedIn}
               component={Profile}
@@ -203,8 +206,8 @@ function App() {
               infoMessage={infoMessage}
             />
 
-            <Route path="/" exact>
-              <Main isLoading={isLoading} />
+            <Route exact path="/" loggedIn={loggedIn}>
+              <Main isLoading={isLoading} loggedIn={loggedIn} />
             </Route>
 
             <Route path="/signup">

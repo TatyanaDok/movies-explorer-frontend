@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./Main.css";
 import Promo from "../Promo/Promo";
 import AboutProject from "../AboutProject/AboutProject";
@@ -10,23 +10,33 @@ import NavTab from "../NavTab/NavTab";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import Preloader from "../Preloader/Preloader";
+import Navigation from "../Navigation/Navigation";
 
-function Main({ isLoading }) {
+function Main({ isLoading, loggedIn }) {
   return isLoading ? (
     <Preloader />
   ) : (
     <>
-      <Header className="header">
-        <div className="header__logo" />
-        <div className="header__auth">
-          <Link to="/signup" className="header__register">
-            Регистрация
-          </Link>
-          <Link to="/signin">
-            <button className="header__button-entry">Войти</button>
-          </Link>
-        </div>
-      </Header>
+      {loggedIn ? (
+        <header className="header-loggedin">
+          <NavLink to="/">
+            <div className="header__logo" />
+          </NavLink>
+          <Navigation />
+        </header>
+      ) : (
+        <Header className="header">
+          <div className="header__logo" />
+          <div className="header__auth">
+            <Link to="/signup" className="header__register">
+              Регистрация
+            </Link>
+            <Link to="/signin">
+              <button className="header__button-entry">Войти</button>
+            </Link>
+          </div>
+        </Header>
+      )}
       <main className="content">
         <Promo />
         <NavTab />
