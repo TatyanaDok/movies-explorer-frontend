@@ -1,6 +1,12 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
-import { Redirect, Route, Switch, useHistory } from "react-router-dom";
+import {
+  Redirect,
+  Route,
+  Switch,
+  useHistory,
+  useLocation,
+} from "react-router-dom";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import Main from "../Main/Main";
 import Movies from "../Movies/Movies";
@@ -15,6 +21,7 @@ import { SUCCESSFUL_CODE } from "../../utils/constants";
 
 function App() {
   const history = useHistory();
+  let location = useLocation();
   const [currentUser, setCurrentUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -26,6 +33,43 @@ function App() {
     message: "",
     code: SUCCESSFUL_CODE,
   });
+
+  useEffect(() => {
+    setIsLoading(true);
+    mainApi
+      .getInitialData()
+      .then(([user, data]) => {
+        setCurrentUser(user);
+        setSavedMovies(data);
+        setLoggedIn(true);
+      })
+      .catch((err) => {
+        setIsError(true);
+        console.log(err);
+      })
+      .finally(() => setIsLoading(false));
+  }, [loggedIn]);
+
+  function checkToken() {
+    const path = location.pathname;
+    mainApi
+      .getUser()
+      .then((res) => {
+        if (res.status === 401 || res.status === 403) {
+          setLoggedIn(false);
+          setCurrentUser({});
+          history.push("/");
+        } else {
+          setLoggedIn(true);
+          history.push(path);
+        }
+      })
+      .catch((err) => console.error(err));
+  }
+
+  React.useEffect(() => {
+    checkToken();
+  }, []);
 
   function handleRegister(name, email, password) {
     setIsFormDisabled(true);
@@ -56,7 +100,7 @@ function App() {
       .then((data) => {
         setLoggedIn(true);
         setCurrentUser(data);
-        console.log(data);
+        history.push("/movies");
       })
       .catch(({ message, statusCode }) => {
         setInfoMessage({
@@ -83,36 +127,7 @@ function App() {
         console.log(err);
       });
   }
-  useEffect(() => {
-    setIsLoading(true);
 
-    mainApi
-      .getUser()
-      .then((data) => {
-        setLoggedIn(true);
-        setCurrentUser(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => setIsLoading(false));
-  }, [loggedIn]);
-
-  useEffect(() => {
-    if (loggedIn) {
-      mainApi
-        .getUsersMovies()
-        .then((data) => {
-          setLoggedIn(true);
-          setSavedMovies(data);
-          setIsError(false);
-        })
-        .catch((err) => {
-          setIsError(true);
-          console.log(err);
-        });
-    }
-  }, [loggedIn]);
   function handleUpdateUser(name, email) {
     mainApi
       .updateProfile(name, email)

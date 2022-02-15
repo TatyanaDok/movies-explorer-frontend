@@ -7,7 +7,9 @@ class MainApi {
     this._moviesUrl = `${this._baseUrl}/movies`;
     this._token = headers["authorization"];
   }
-
+  getInitialData() {
+    return Promise.all([this.getUser(), this.getUsersMovies()]);
+  }
   getUser() {
     return fetch(this._userUrl, {
       headers: {
