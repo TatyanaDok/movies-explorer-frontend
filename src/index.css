@@ -1,10 +1,2 @@
 @import url(./vendor/normalize.css);
 @import "./vendor/fonts/inter/inter.css";
-
-.root {
-  max-width: 1280px;
-  margin: 0 auto;
-  font-family: Inter, "Helvetica Neue", "Arial", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  min-width: 320px;
-}

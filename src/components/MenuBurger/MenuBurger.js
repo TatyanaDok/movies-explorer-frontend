@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import "./MenuBurger.css";
-import icon from "../../images/icon-accaunt.svg";
+import icon from "../../images/icon.svg";
+
 function MenuBurger() {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -29,7 +30,6 @@ function MenuBurger() {
           <button className="burger__cross" onClick={closePopup}></button>
           <div className="burger__box">
             <NavLink
-              exact
               to="/"
               activeClassName="burger__link_active"
               className="burger__link"
@@ -38,7 +38,6 @@ function MenuBurger() {
               Главная
             </NavLink>
             <NavLink
-              exact
               to="/movies"
               activeClassName="burger__link_active"
               className="burger__link"
@@ -47,7 +46,6 @@ function MenuBurger() {
               Фильмы
             </NavLink>
             <NavLink
-              exact
               to="/saved-movies"
               activeClassName="burger__link_active"
               className="burger__link"
@@ -59,7 +57,7 @@ function MenuBurger() {
           <div className="burger__account">
             <NavLink to="/profile" className="header__account">
               <p className="accaunt">Аккаунт</p>
-              <img src={icon} alt="иконка" className="account__icon" />
+              <img alt="иконка" src={icon} className="account__icon" />
             </NavLink>
           </div>
         </div>
